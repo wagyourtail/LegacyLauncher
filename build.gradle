@@ -8,7 +8,7 @@ repositories {
 
 group = 'optifine'
 archivesBaseName = 'launchwrapper-of'
-version = '2.1'
+version = '2.2'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
