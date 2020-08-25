@@ -44,7 +44,7 @@ public class LaunchClassLoader extends URLClassLoader {
     private static File tempFolder = null;
 
     public LaunchClassLoader(URL[] sources) {
-        super(sources, null);
+        super(sources, getParentClassLoader());
         this.sources = new ArrayList<URL>(Arrays.asList(sources));
 
         // classloader exclusions
@@ -384,5 +384,16 @@ public class LaunchClassLoader extends URLClassLoader {
 
     public void clearNegativeEntries(Set<String> entriesToClear) {
         negativeResourceCache.removeAll(entriesToClear);
+    }
+
+    private static ClassLoader getParentClassLoader() {
+        if (!System.getProperty("java.version").startsWith("1.")) {
+            try {
+                return (ClassLoader) ClassLoader.class.getDeclaredMethod("getPlatformClassLoader").invoke(null);
+            } catch (Throwable t) {
+                LogWrapper.warning("No platform classloader: " + System.getProperty("java.version"));
+            }
+        }
+        return null;
     }
 }
