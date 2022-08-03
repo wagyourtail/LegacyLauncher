@@ -1,8 +1,9 @@
 package net.minecraft.launchwrapper;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class LogWrapper {
     public static LogWrapper log = new LogWrapper();
@@ -11,7 +12,7 @@ public class LogWrapper {
     private static boolean configured;
 
     private static void configureLogging() {
-        log.myLog = LogManager.getLogger("LaunchWrapper");
+        log.myLog = LogManager.getLogManager().getLogger("LaunchWrapper");
         configured = true;
     }
 
@@ -20,7 +21,7 @@ public class LogWrapper {
     }
     public static void log(String logChannel, Level level, String format, Object... data) {
         makeLog(logChannel);
-        LogManager.getLogger(logChannel).log(level, String.format(format, data));
+        LogManager.getLogManager().getLogger(logChannel).log(level, String.format(format, data));
     }
 
     public static void log(Level level, String format, Object... data) {
@@ -32,7 +33,7 @@ public class LogWrapper {
 
     public static void log(String logChannel, Level level, Throwable ex, String format, Object... data) {
         makeLog(logChannel);
-        LogManager.getLogger(logChannel).log(level, String.format(format, data), ex);
+        LogManager.getLogManager().getLogger(logChannel).log(level, String.format(format, data), ex);
     }
 
     public static void log(Level level, Throwable ex, String format, Object... data) {
@@ -43,11 +44,11 @@ public class LogWrapper {
     }
 
     public static void severe(String format, Object... data) {
-        log(Level.ERROR, format, data);
+        log(Level.SEVERE, format, data);
     }
 
     public static void warning(String format, Object... data) {
-        log(Level.WARN, format, data);
+        log(Level.WARNING, format, data);
     }
 
     public static void info(String format, Object... data) {
@@ -55,18 +56,18 @@ public class LogWrapper {
     }
 
     public static void fine(String format, Object... data) {
-        log(Level.DEBUG, format, data);
+        log(Level.FINE, format, data);
     }
 
     public static void finer(String format, Object... data) {
-        log(Level.TRACE, format, data);
+        log(Level.FINER, format, data);
     }
 
     public static void finest(String format, Object... data) {
-        log(Level.TRACE, format, data);
+        log(Level.FINEST, format, data);
     }
 
     public static void makeLog(String logChannel) {
-        LogManager.getLogger(logChannel);
+        LogManager.getLogManager().getLogger(logChannel);
     }
 }

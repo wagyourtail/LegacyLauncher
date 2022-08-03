@@ -17,8 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.logging.log4j.Level;
+import java.util.logging.Level;
 
 public class Launch {
     private static final String DEFAULT_TWEAK = "net.minecraft.launchwrapper.VanillaTweaker";
@@ -108,7 +107,7 @@ public class Launch {
                     final String tweakName = it.next();
                     // Safety check - don't reprocess something we've already visited
                     if (allTweakerNames.contains(tweakName)) {
-                        LogWrapper.log(Level.WARN, "Tweak class name %s has already been visited -- skipping", tweakName);
+                        LogWrapper.log(Level.WARNING, "Tweak class name %s has already been visited -- skipping", tweakName);
                         // remove the tweaker from the stack otherwise it will create an infinite loop
                         it.remove();
                         continue;
@@ -158,7 +157,7 @@ public class Launch {
             LogWrapper.info("Launching wrapped minecraft {%s}", launchTarget);
             mainMethod.invoke(null, (Object) argumentList.toArray(new String[argumentList.size()]));
         } catch (Exception e) {
-            LogWrapper.log(Level.ERROR, e, "Unable to launch");
+            LogWrapper.log(Level.SEVERE, e, "Unable to launch");
             System.exit(1);
         }
     }
