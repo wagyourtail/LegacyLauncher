@@ -38,7 +38,7 @@ public class Launch {
         } else {
             classLoader = new LaunchClassLoader(getURLs());
         }
-        blackboard = new HashMap<String,Object>();
+        blackboard = new HashMap<>();
         Thread.currentThread().setContextClassLoader(classLoader);
     }
 

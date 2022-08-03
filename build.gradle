@@ -1,12 +1,13 @@
 apply plugin: 'java'
+apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
 }
 
-group = 'optifine'
-archivesBaseName = 'launchwrapper-of'
-version = '2.2'
+group = 'net.minecraft'
+archivesBaseName = 'launchwrapper'
+version = 'of-2.2-nolog4j'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
