@@ -1,39 +1,52 @@
+//
+// Source code recreated from a .class file by Quiltflower
+//
+
 package net.minecraft.launchwrapper;
 
-
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class LogWrapper {
     public static LogWrapper log = new LogWrapper();
     private Logger myLog;
-
     private static boolean configured;
 
-    static {
-        log.myLog = LogManager.getLogManager().getLogger("LaunchWrapper");
+    public LogWrapper() {
+    }
+
+    private static void configureLogging() {
+        log.myLog = Logger.getLogger("LaunchWrapper");
         configured = true;
     }
 
     public static void retarget(Logger to) {
         log.myLog = to;
     }
+
     public static void log(String logChannel, Level level, String format, Object... data) {
         makeLog(logChannel);
-        LogManager.getLogManager().getLogger(logChannel).log(level, String.format(format, data));
+        Logger.getLogger(logChannel).log(level, String.format(format, data));
     }
 
     public static void log(Level level, String format, Object... data) {
+        if (!configured) {
+            configureLogging();
+        }
+
         log.myLog.log(level, String.format(format, data));
     }
 
     public static void log(String logChannel, Level level, Throwable ex, String format, Object... data) {
         makeLog(logChannel);
-        LogManager.getLogManager().getLogger(logChannel).log(level, String.format(format, data), ex);
+        Logger.getLogger(logChannel).log(level, String.format(format, data), ex);
     }
 
     public static void log(Level level, Throwable ex, String format, Object... data) {
+        if (!configured) {
+            configureLogging();
+        }
+
         log.myLog.log(level, String.format(format, data), ex);
     }
 
@@ -62,6 +75,6 @@ public class LogWrapper {
     }
 
     public static void makeLog(String logChannel) {
-        LogManager.getLogManager().getLogger(logChannel);
+        Logger.getLogger(logChannel).setParent(log.myLog);
     }
 }
