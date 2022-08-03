@@ -11,7 +11,7 @@ public class LogWrapper {
 
     private static boolean configured;
 
-    private static void configureLogging() {
+    static {
         log.myLog = LogManager.getLogManager().getLogger("LaunchWrapper");
         configured = true;
     }
@@ -25,9 +25,6 @@ public class LogWrapper {
     }
 
     public static void log(Level level, String format, Object... data) {
-        if (!configured) {
-            configureLogging();
-        }
         log.myLog.log(level, String.format(format, data));
     }
 
@@ -37,9 +34,6 @@ public class LogWrapper {
     }
 
     public static void log(Level level, Throwable ex, String format, Object... data) {
-        if (!configured) {
-            configureLogging();
-        }
         log.myLog.log(level, String.format(format, data), ex);
     }
 
