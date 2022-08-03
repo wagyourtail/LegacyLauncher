@@ -2,7 +2,10 @@
 // Source code recreated from a .class file by Quiltflower
 //
 
-package net.minecraft.launchwrapper;
+package net.minecraft.launchwrapper.injector;
+
+import net.minecraft.launchwrapper.ITweaker;
+import net.minecraft.launchwrapper.LaunchClassLoader;
 
 import java.io.File;
 import java.util.List;
